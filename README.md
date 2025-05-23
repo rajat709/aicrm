@@ -73,9 +73,8 @@ This project is built purely with front-end technologies:
 
 ## 📧 Contact
 
-**Dataoorts** - [help@dataoorts.com]
-
-Project Link: [https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME](https://github.com/rjvishwa709/aicrm)
+**Dataoorts - AI CRM**
+Project Link: [https://github.com/rajat709/aicrm](https://github.com/rjvishwa709/aicrm)
 
 ---
 

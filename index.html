@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AICRM - AI Powered CRM Apps</title>
+    <!-- Embedded SVG Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path fill='%2300CFE8' d='M50,5C25.2,5,5,25.2,5,50s20.2,45,45,45s45-20.2,45-45S74.8,5,50,5z M50,85c-19.3,0-35-15.7-35-35s15.7-35,35-35s35,15.7,35,35S69.3,85,50,85z'/><path fill='%23FFFFFF' d='M50,26.4c-3.8,0-6.8,3.1-6.8,6.8v13.6c0,3.8,3.1,6.8,6.8,6.8s6.8-3.1,6.8-6.8V33.2C56.8,29.5,53.8,26.4,50,26.4z M63.6,50c0,3.8-3.1,6.8-6.8,6.8h-13.6c-3.8,0-6.8-3.1-6.8-6.8s3.1-6.8,6.8-6.8h13.6C60.5,43.2,63.6,46.2,63.6,50z'/></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00CFE8; /* Vibrant Cyan/Teal */
+            --primary-hover-color: #00A5B8;
+            --secondary-color: #a0b3d1; /* Light blue-gray for text */
+            --accent-color: #00CFE8; /* Using primary for accent glow */
+
+            --bg-dark-primary: #0d1117; /* Very dark blue/charcoal - main background */
+            --bg-dark-secondary: #161b22; /* Slightly lighter dark - for cards/header */
+            --bg-dark-tertiary: #21262d; /* For borders or subtle backgrounds */
+
+            --text-light-primary: #e6edf3; /* Main light text color */
+            --text-light-secondary: #8b949e; /* Muted light text */
+
+            --border-color-dark: #30363d;
+            --glow-color: rgba(0, 207, 232, 0.5); /* Primary color with alpha for glow */
+            --box-shadow-dark: 0 4px 15px rgba(0, 0, 0, 0.2);
+            --box-shadow-glow: 0 0 15px var(--glow-color), 0 0 25px var(--glow-color), 0 0 35px rgba(0, 207, 232, 0.3);
+            --box-shadow-glow-hover: 0 0 20px var(--glow-color), 0 0 35px var(--glow-color), 0 0 50px rgba(0, 207, 232, 0.4);
+
+            --border-radius: 10px;
+            --font-primary: 'Montserrat', sans-serif;
+            --font-secondary: 'Roboto', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-secondary);
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-dark-primary);
+            color: var(--text-light-primary);
+            line-height: 1.7;
+            overflow-x: hidden; /* Prevent horizontal scroll from glowing elements */
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        header {
+            background: var(--bg-dark-secondary);
+            color: var(--text-light-primary);
+            padding: 40px 0 30px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color-dark);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        header h1 {
+            font-family: var(--font-primary);
+            font-size: 3.8em;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(0, 207, 232, 0.3);
+        }
+
+        header .tagline {
+            font-family: var(--font-primary);
+            font-size: 1.5em;
+            font-weight: 400;
+            color: var(--text-light-secondary);
+        }
+
+        header .ai-brand {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        main {
+            padding: 50px 0;
+        }
+
+        #services {
+            text-align: center;
+        }
+
+        .services-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 35px;
+            justify-content: center;
+        }
+
+        .service-column {
+            flex: 1 1 420px;
+            min-width: 320px;
+            display: flex;
+        }
+
+        .service-box {
+            background-color: var(--bg-dark-secondary);
+            padding: 35px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color-dark);
+            text-align: left;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease-out, border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            box-shadow: 0 0 0px var(--glow-color); /* Initial state, subtle */
+        }
+
+        .service-box:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--box-shadow-glow-hover);
+            border-color: var(--primary-color);
+        }
+
+        .service-icon {
+            margin-bottom: 25px;
+            text-align: center;
+            height: 64px; /* Ensure consistent height for icon area */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-icon img {
+            width: 64px;
+            height: 64px;
+            filter: drop-shadow(0 0 8px var(--primary-color)); /* Glow for icon */
+        }
+
+        /* Specific icon color for placeholder if needed */
+        .placeholder-box .service-icon img {
+             filter: drop-shadow(0 0 8px var(--secondary-color));
+        }
+
+
+        .service-box h2 {
+            font-family: var(--font-primary);
+            font-size: 2em;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .service-box p {
+            font-size: 1.05em;
+            color: var(--secondary-color);
+            margin-bottom: 30px;
+            flex-grow: 1;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            font-family: var(--font-primary);
+            font-size: 1.1em;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--bg-dark-primary); /* Dark text on bright button */
+            box-shadow: 0 0 10px rgba(0, 207, 232, 0.4);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover-color);
+            color: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 207, 232, 0.7);
+        }
+
+        /* Placeholder specific styles */
+        .placeholder-box {
+            border: 2px dashed var(--border-color-dark);
+            background-color: var(--bg-dark-primary); /* Slightly different bg for placeholder */
+            box-shadow: none; /* No glow on placeholder initially */
+        }
+
+        .placeholder-box:hover {
+            border-color: var(--secondary-color);
+            transform: translateY(-5px) scale(1.01); /* Less dramatic hover */
+            box-shadow: 0 0 15px rgba(160, 179, 209, 0.2); /* Subtle glow for placeholder */
+        }
+
+
+        .placeholder-box h2 {
+            color: var(--text-light-secondary);
+        }
+
+        .placeholder-box p {
+            color: #777f88;
+        }
+
+        .animated-ellipsis span {
+            animation: ellipsis-blink 1.4s infinite both;
+            font-size: 1.5em;
+            color: var(--secondary-color);
+        }
+
+        .animated-ellipsis span:nth-child(1) {
+            animation-delay: 0s;
+        }
+        .animated-ellipsis span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .animated-ellipsis span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes ellipsis-blink {
+            0% { opacity: .2; }
+            20% { opacity: 1; }
+            100% { opacity: .2; }
+        }
+
+        .status-indicator { /* Container for the ellipsis */
+            margin-top: 20px;
+            height: 30px; /* Give it some space */
+        }
+
+
+        footer {
+            background-color: var(--bg-dark-secondary);
+            color: var(--text-light-secondary);
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 60px;
+            font-size: 0.95em;
+            border-top: 1px solid var(--border-color-dark);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .service-column {
+                flex-basis: 45%; /* Adjust for slightly smaller screens */
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.8em;
+            }
+            header .tagline {
+                font-size: 1.2em;
+            }
+            .services-grid {
+                flex-direction: column;
+            }
+            .service-column {
+                flex-basis: 100%;
+            }
+            .service-box {
+                padding: 25px;
+            }
+            .service-box h2 {
+                font-size: 1.8em;
+            }
+        }
+
+         @media (max-width: 480px) {
+            header h1 {
+                font-size: 2.2em;
+            }
+            header .tagline {
+                font-size: 1em;
+            }
+            .btn {
+                padding: 12px 24px;
+                font-size: 1em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>AICRM</h1>
+            <p class="tagline">CRM Apps Powered with <span class="ai-brand">Dataoorts AI</span></p>
+        </div>
+    </header>
+
+    <main>
+        <section id="services" class="container">
+            <div class="services-grid">
+                <!-- Column 1: AI Email Verification -->
+                <div class="service-column">
+                    <div class="service-box">
+                        <div class="service-icon">
+                            <img src="https://img.icons8.com/fluency/96/00CFE8/verified-account.png" alt="AI Email Verification Icon"/>
+                        </div>
+                        <h2>AI Email Verification</h2>
+                        <p>
+                            Elevate your email outreach with our AI-enhanced verification.
+                            Beyond traditional checks, our Dataoorts AI model intelligently
+                            predicts an estimated user profile linked with the email,
+                            analyzes deliverability, and provides deeper insights to
+                            ensure your messages reach real, engaged individuals.
+                        </p>
+                        <a href="https://mails.dataoorts.com" target="_blank" class="btn btn-primary">
+                            Explore AI Email Verification
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Coming Soon -->
+                <div class="service-column">
+                    <div class="service-box placeholder-box">
+                        <div class="service-icon">
+                             <!-- Icon representing innovation/ideas in progress -->
+                            <img src="https://img.icons8.com/fluency/96/a0b3d1/innovation.png" alt="More Services Coming Soon Icon"/>
+                        </div>
+                        <h2>More Services Coming Soon</h2>
+                        <p>
+                            We're actively developing more innovative AI-powered CRM solutions.
+                            Stay tuned for exciting new tools to supercharge your customer relationships!
+                        </p>
+                        <div class="status-indicator">
+                            <div class="animated-ellipsis">
+                                <span>.</span><span>.</span><span>.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 AICRM by Dataoorts. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("AICRM Dark Theme Page Loaded and Ready!");
+        });
+    </script>
+</body>
+</html>
